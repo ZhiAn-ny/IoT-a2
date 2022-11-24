@@ -3,8 +3,9 @@
 
 class Sonar {
 public:
+  Sonar( int trigPin,int echoPin);
   float getDistance();   
-protected:
+  protected:
   int trigPin,echoPin;  
 };
 #endif

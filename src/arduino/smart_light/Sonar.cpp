@@ -9,7 +9,7 @@ Sonar::Sonar(int trigPin,int echoPin){
   this->echoPin = echoPin;
 }
 const float vs = 331.45 + 0.62*20;
-bool Sonar::getDistance(){
+float Sonar::getDistance(){
     digitalWrite(trigPin,LOW);
     delayMicroseconds(3);
     digitalWrite(trigPin,HIGH);

@@ -3,7 +3,8 @@
 
 class PirSensor {
 public:
-  void detect();   
+ PirSensor(int pin);
+  bool detect();   
 protected:
   int pin;  
 };
