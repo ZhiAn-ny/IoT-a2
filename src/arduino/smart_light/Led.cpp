@@ -8,7 +8,6 @@ Led::Led(int pin){
 
 void Led::switchOn(){
   digitalWrite(pin,HIGH);
-  delay(2000);
 }
 
 void Led::switchOff(){
