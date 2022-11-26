@@ -1,10 +1,11 @@
 #ifndef SMART_CM_WATER_MONITOR_H_
 #define SMART_CM_WATER_MONITOR_H_
 
-#include "../Led.h"
-#include "../Task.h"
-#include "../config.h"
-#include "../Sonar.h"
+#include "Led.h"
+#include "Task.h"
+#include "config.h"
+#include "Sonar.h"
+#include "Scheduler.h"
 
 namespace bridge_control {
   namespace water_monitor {
@@ -15,7 +16,7 @@ namespace bridge_control {
       Alarm
     };
 
-    class WaterMonitorController: public Task {
+    class WaterMonitorController {
       private:
         const float water_level_1_ = 100; // 100 cm
         const float water_level_2_ = 50;
@@ -38,6 +39,7 @@ namespace bridge_control {
          * @params green - the pin on which the green light is connected
          * @params red - the pin on which the red light is connected
          */
+        void init_lights(int green, int red);
 
         void normal_state_handler();
         void prealarm_state_handler();
@@ -47,13 +49,8 @@ namespace bridge_control {
         WaterMonitorController();
         ~WaterMonitorController();
 
-        void init(int period);  
-        void init_lights(int green, int red);
-        void tick();
-
+       void init();
     };
-
-
 
   }
 }

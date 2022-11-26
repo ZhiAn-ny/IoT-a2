@@ -1,8 +1,8 @@
 #ifndef _SMART_BRIDGE_BLINK_TASK_H_
 #define _SMART_BRIDGE_BLINK_TASK_H_
 
-#include "../Task.h"
-#include "../Led.h"
+#include "Task.h"
+#include "Led.h"
 
 namespace bridge_scheduling {
     namespace tasks {
