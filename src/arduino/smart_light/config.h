@@ -1,14 +1,15 @@
 #ifndef __CONFIG__ 
 #define __CONFIG__
 
+#include <Arduino.h>
+#include <LiquidCrystal_I2C.h> 
+
 #include "Led.h"
 #include "Sonar.h"
 #include "Motor.h"
 #include "ButtonImpl.h"
-#include <Arduino.h>
 #include "LightSensorImpl.h"
 #include "PirSensor.h"
-#include <LiquidCrystal_I2C.h> 
 
 
 // the pin that must be used
@@ -23,4 +24,4 @@
 #define POT_PIN A0
 #define THl 18
 
-#endif;
+#endif // !__CONFIG__

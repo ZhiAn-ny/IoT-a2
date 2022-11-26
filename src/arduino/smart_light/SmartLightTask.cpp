@@ -15,6 +15,7 @@ void SmartLightTask::init(int period){
 void SmartLightTask::tick(){
    int level = lightSensor->getLightIntensity();
    Serial.println(level);   
+   
     if(pirSensor->detect()==true ){
     if (level <=THl){
       led->switchOn();

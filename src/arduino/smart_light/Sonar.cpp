@@ -4,11 +4,14 @@
    */
 #include "Sonar.h"
 #include "Arduino.h"
+
+const float vs = 331.45 + 0.62*20;
+
 Sonar::Sonar(int trigPin,int echoPin){
   this->trigPin = trigPin;
   this->echoPin = echoPin;
 }
-const float vs = 331.45 + 0.62*20;
+
 float Sonar::getDistance(){
     digitalWrite(trigPin,LOW);
     delayMicroseconds(3);

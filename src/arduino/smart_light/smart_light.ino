@@ -1,10 +1,16 @@
+#include <Arduino.h>
 #include "Scheduler.h"
-#include "Arduino.h"
 #include "SmartLightTask.h"
+
 Scheduler sched;
+
+
 void setup(){
 
   Serial.begin(9600);
+  Serial.println("Welcome to Smart Bridge Project");
+
+
   sched.init(100);
  
   Task* t0 = new SmartLightTask();
