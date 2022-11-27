@@ -13,3 +13,8 @@ void Led::switchOn(){
 void Led::switchOff(){
   digitalWrite(pin,LOW);
 };
+
+int Led::getPin()
+{
+  return this->pin;
+}

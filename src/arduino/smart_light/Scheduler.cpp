@@ -36,3 +36,8 @@ void Scheduler::schedule(){
     }
   }
 }
+
+int Scheduler::getTasksCount()
+{
+  return this->nTasks;
+}

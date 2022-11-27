@@ -12,7 +12,7 @@ class SmartLightTask: public Task {
   Led* led;
   LightSensor* lightSensor;
   PirSensor* pirSensor;
-  int t,T1=3000;
+  int t, T1=3000;
 
 public:
   SmartLightTask();  
