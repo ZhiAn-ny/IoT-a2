@@ -7,11 +7,12 @@
 
 #include "WaterMonitor.h"
 
-using namespace bridge_scheduling;
+using namespace bridge_control::water_monitor;
+
 
 Scheduler sched;
 
-
+WaterMonitorController controller;
 
 
 void setup(){
@@ -19,7 +20,7 @@ void setup(){
   Serial.begin(115200);
   Serial.println("Welcome to Smart Bridge Project");
 
-  //controller.init();
+  controller.init(&sched);
 
   // sched.init(100);
   // Serial.println("Scheduler initialized");
@@ -39,4 +40,12 @@ void setup(){
 
 void loop(){
   sched.schedule();
+
+  controller.handle_current_state();
+
+  if (controller.is_in_alarm_state()) {
+    // TODO: turn off lighting subsystem (led a)
+    // valve open by a degrees which depends on water level, etc.
+  }
+
 }

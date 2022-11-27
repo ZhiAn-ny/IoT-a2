@@ -2,15 +2,19 @@
 #define SMART_CM_WATER_MONITOR_H_
 
 #include "Led.h"
-#include "Task.h"
+#include "WaterSampling.h"
+#include "BlinkTask.h"
 #include "config.h"
 #include "Sonar.h"
 #include "Scheduler.h"
+
+using namespace bridge_scheduling::tasks;
 
 namespace bridge_control {
   namespace water_monitor {
 
     enum class SystemState {
+      Undefined,
       Normal,
       PreAlarm,
       Alarm
@@ -26,12 +30,15 @@ namespace bridge_control {
         const int pe_prealarm_ = 500; // 500 millis
         const int pe_alarm_ = 500; // 500 millis
 
-        Led* green_ = nullptr;
-        Led* red_ = nullptr;
+        float water_surface_dist_ = 0.0;
 
-        Sonar* sonar_ = nullptr;
+        Light* green_ = nullptr;
+        Light* red_ = nullptr;
 
-        SystemState state_ = SystemState::Normal;
+        Task*  water_sampling_task_ = nullptr;
+        Task* led_blink_task_ = nullptr;
+
+        SystemState state_ = SystemState::Undefined;
 
         SystemState get_system_state();
 
@@ -41,7 +48,7 @@ namespace bridge_control {
          */
         void init_lights(int green, int red);
 
-        void normal_state_handler();
+        void set_system_state_normal();
         void prealarm_state_handler();
         void alarm_state_handler();
 
@@ -49,7 +56,9 @@ namespace bridge_control {
         WaterMonitorController();
         ~WaterMonitorController();
 
-       void init();
+        void init(Scheduler* sched);
+        void handle_current_state();
+        bool is_in_alarm_state();
     };
 
   }

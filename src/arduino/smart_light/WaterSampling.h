@@ -13,7 +13,7 @@ namespace bridge_scheduling
         class WaterSamplingTask : public Task {
             private:
                 Sonar* sonar_ = nullptr;
-                float* water_level_ = nullptr;
+                float* water_surface_dist_ = nullptr;
 
             public:
                 WaterSamplingTask(float* water_level);
