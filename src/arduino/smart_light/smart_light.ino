@@ -6,16 +6,19 @@
 #include "BlinkTask.h"
 
 #include "WaterMonitor.h"
+#include "Illumination.h"
 
 using namespace bridge_control::water_monitor;
+using namespace bridge_control::illumination;
 
 
 Scheduler sched;
 
 WaterMonitorController controller;
+IlluminationSystem bridge_lights;
 
 
-void setup(){
+void setup() {
 
   Serial.begin(19200);
   Serial.println("Welcome to Smart Bridge Project");
@@ -23,23 +26,19 @@ void setup(){
   sched.init(100);
 
   controller.init(&sched);
+  bridge_lights.init(&sched);
 
-  Task* t0 = new SmartLightTask();
-  t0->init(100);
-  sched.addTask(t0);
-   if (Serial.availableForWrite()) {
-    Serial.println(sched.getTasksCount());
-  }
 }
 
-void loop(){
+void loop() {
   sched.schedule();
 
   controller.handle_current_state();
 
-  // if (controller.is_in_alarm_state()) {
-  //   // TODO: turn off lighting subsystem (led a)
-  //   // valve open by a degrees which depends on water level, etc.
-  // }
+  if (controller.is_in_alarm_state()) {
+    bridge_lights.turnOff();
+    
+    // TODO: valve open by a degrees which depends on water level, etc.
+  }
 
 }

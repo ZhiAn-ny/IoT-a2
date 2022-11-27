@@ -27,6 +27,6 @@
 #define BUTTON_PIN 11
 #define POT_PIN A0
 // Minimum light level under which the light can be turned on
-#define THl 128
+#define THl 50
 
 #endif // !__CONFIG__

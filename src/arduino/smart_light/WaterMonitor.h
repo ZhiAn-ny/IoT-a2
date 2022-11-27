@@ -30,7 +30,7 @@ namespace bridge_control {
         const int pe_prealarm_ = 300; // 300 millis
         const int pe_alarm_ = 100; // 100 millis
 
-        float water_surface_dist_ = 90.0;
+        float water_surface_dist_ = 150.0;
 
         Light* green_ = nullptr;
         Light* red_ = nullptr;
