@@ -16,6 +16,8 @@ void BlinkTask::init(int period)
 
 void BlinkTask::tick()
 {
+    if (!this->isActive()) return;
+    
     if (this->state_ == ON) {
         this->led_->switchOff();
         this->state_ = OFF;

@@ -13,6 +13,8 @@ void SmartLightTask::init(int period){
 }
   
 void SmartLightTask::tick(){
+   if (!this->isActive()) return;
+
    int level = lightSensor->getLightIntensity();
    Serial.println(level);   
    
