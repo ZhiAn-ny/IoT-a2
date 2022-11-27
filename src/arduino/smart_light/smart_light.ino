@@ -24,12 +24,12 @@ void setup(){
 
   controller.init(&sched);
 
-  // Task* t0 = new SmartLightTask();
-  // t0->init(100);
-  // sched.addTask(t0);
-  //  if (Serial.availableForWrite()) {
-  //   Serial.println(sched.getTasksCount());
-  // }
+  Task* t0 = new SmartLightTask();
+  t0->init(100);
+  sched.addTask(t0);
+   if (Serial.availableForWrite()) {
+    Serial.println(sched.getTasksCount());
+  }
 }
 
 void loop(){
