@@ -17,8 +17,10 @@ void SmartLightTask::tick() {
 
   int light_intensity = lightSensor->getLightIntensity();
 
+#ifdef DEBUG
   Serial.print("Light level: ");
-  Serial.println(light_intensity);   
+  Serial.println(light_intensity);
+#endif // !DEBUG
 
   if (light_intensity > THl) {
     // There is enough light, we do not need to turn the led on
