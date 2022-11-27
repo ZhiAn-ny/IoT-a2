@@ -14,7 +14,7 @@ using namespace bridge_control::illumination;
 
 Scheduler sched;
 
-WaterMonitorController controller;
+WaterMonitorController water_monitor;
 IlluminationSystem bridge_lights;
 
 
@@ -25,7 +25,7 @@ void setup() {
 
   sched.init(100);
 
-  controller.init(&sched);
+  water_monitor.init(&sched);
   bridge_lights.init(&sched);
 
 }
@@ -33,9 +33,9 @@ void setup() {
 void loop() {
   sched.schedule();
 
-  controller.handle_current_state();
+  water_monitor.handle_current_state();
 
-  if (controller.is_in_alarm_state()) {
+  if (water_monitor.is_in_alarm_state()) {
     bridge_lights.turnOff();
     
     // TODO: valve open by a degrees which depends on water level, etc.

@@ -20,13 +20,8 @@ void WaterMonitorController::init(Scheduler* sched)
     this->led_blink_task_->setInactive();
     sched->addTask(this->led_blink_task_);
 
-  //  this->water_sampling_task_ = new WaterSamplingTask(&this->water_surface_dist_);
-//    // sched->addTask(this->water_sampling_task_);
-//     sched->addTask(this->led_blink_task_);
-//     if (Serial.availableForWrite()) {
-//             Serial.println("task added");
-//             Serial.println(sched->getTasksCount());
-//     }
+   this->water_sampling_task_ = new WaterSamplingTask(&this->water_surface_dist_);
+   sched->addTask(this->water_sampling_task_);
 
     this->handle_current_state();
 }
@@ -45,6 +40,7 @@ SystemState WaterMonitorController::get_system_state()
     } else if (this->water_surface_dist_ > this->water_level_max_) {
         return SystemState::Alarm;
     }
+
     return SystemState::Undefined;
 }
 
@@ -53,7 +49,7 @@ void WaterMonitorController::set_system_state_normal()
     this->green_->switchOn();
     this->red_->switchOff();
 
-  //  this->water_sampling_task_->init(this->pe_normal_);
+    this->water_sampling_task_->init(this->pe_normal_);
     this->led_blink_task_->setInactive();
 
     this->state_ = SystemState::Normal;
@@ -65,11 +61,10 @@ void WaterMonitorController::set_system_state_prealarm()
     this->led_blink_task_->setActive();
 
     if (Serial.availableForWrite()) {
-        // Serial.println(this->led_blink_task_->isActive());
         Serial.println("PRE-ALARM STATE");
     }
     
-   // this->water_sampling_task_->init(this->pe_prealarm_);
+   this->water_sampling_task_->init(this->pe_prealarm_);
 
     this->state_ = SystemState::PreAlarm;
 
@@ -82,6 +77,12 @@ void WaterMonitorController::set_system_state_alarm()
 
     this->red_->switchOn();
     this->green_->switchOff();
+
+    if (Serial.availableForWrite()) {
+        Serial.println("ALARM STATE");
+    }
+
+   this->water_sampling_task_->init(this->pe_alarm_);
 
     this->state_ = SystemState::Alarm;
 }
