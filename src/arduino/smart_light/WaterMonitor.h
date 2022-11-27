@@ -27,10 +27,10 @@ namespace bridge_control {
         const float water_level_max_ = 30;
 
         const int pe_normal_ = 500; // 500 millis
-        const int pe_prealarm_ = 500; // 500 millis
-        const int pe_alarm_ = 500; // 500 millis
+        const int pe_prealarm_ = 300; // 300 millis
+        const int pe_alarm_ = 100; // 100 millis
 
-        float water_surface_dist_ = 0.0;
+        float water_surface_dist_ = 90.0;
 
         Light* green_ = nullptr;
         Light* red_ = nullptr;
@@ -49,8 +49,8 @@ namespace bridge_control {
         void init_lights(int green, int red);
 
         void set_system_state_normal();
-        void prealarm_state_handler();
-        void alarm_state_handler();
+        void set_system_state_prealarm();
+        void set_system_state_alarm();
 
       public:
         WaterMonitorController();

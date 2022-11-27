@@ -17,25 +17,19 @@ WaterMonitorController controller;
 
 void setup(){
 
-  Serial.begin(115200);
+  Serial.begin(19200);
   Serial.println("Welcome to Smart Bridge Project");
+
+  sched.init(100);
 
   controller.init(&sched);
 
-  // sched.init(100);
-  // Serial.println("Scheduler initialized");
- 
-  // Task* test = new tasks::BlinkTask(LED_PIN_B);
-  // test->init(1000);
-  // Serial.println("Task created");
-  // sched.addTask(test);
-
-
-  Task* t0 = new SmartLightTask();
-  t0->init(100);
-
-  sched.addTask(t0);
-   
+  // Task* t0 = new SmartLightTask();
+  // t0->init(100);
+  // sched.addTask(t0);
+  //  if (Serial.availableForWrite()) {
+  //   Serial.println(sched.getTasksCount());
+  // }
 }
 
 void loop(){
@@ -43,9 +37,9 @@ void loop(){
 
   controller.handle_current_state();
 
-  if (controller.is_in_alarm_state()) {
-    // TODO: turn off lighting subsystem (led a)
-    // valve open by a degrees which depends on water level, etc.
-  }
+  // if (controller.is_in_alarm_state()) {
+  //   // TODO: turn off lighting subsystem (led a)
+  //   // valve open by a degrees which depends on water level, etc.
+  // }
 
 }
