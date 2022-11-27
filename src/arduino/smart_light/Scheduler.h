@@ -15,6 +15,8 @@ public:
   void init(int basePeriod);  
   virtual bool addTask(Task* task);  
   virtual void schedule();
+
+  int getTasksCount();
 };
 
 #endif
