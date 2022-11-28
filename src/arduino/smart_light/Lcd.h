@@ -2,16 +2,9 @@
 #define _SMART_CM_LIQUID_CRYSTAL_H_
 
 #include <LiquidCrystal.h>
+#include "config.h"
 
-#define RS 12
-#define E 11
-#define D4 5
-#define D5 4
-#define D6 3
-#define D7 2
-
-#define N_COLS 16
-#define N_ROWS 2
+using namespace pins::lcd;
 
 class LCD {
     private:
@@ -20,6 +13,7 @@ class LCD {
     public:
         void init();
         void print(int n);
+        void clear();
 
 };
 
