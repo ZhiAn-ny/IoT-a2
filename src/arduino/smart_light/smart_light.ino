@@ -3,19 +3,20 @@
 #include "Scheduler.h"
 #include "SmartLightTask.h"
 
-#include "BlinkTask.h"
-
 #include "WaterMonitor.h"
 #include "Illumination.h"
+#include "UserInputHandler.h"
 
 using namespace bridge_control::water_monitor;
 using namespace bridge_control::illumination;
+using namespace bridge_control::user_input;
 
 
 Scheduler sched;
 
 WaterMonitorController water_monitor;
 IlluminationSystem bridge_lights;
+UserInputHandler user_input;
 
 
 void setup() {
@@ -25,6 +26,7 @@ void setup() {
 
   sched.init(100);
 
+  user_input.init(&sched);
   water_monitor.init(&sched);
   bridge_lights.init(&sched);
 
