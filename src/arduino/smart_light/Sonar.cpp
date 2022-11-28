@@ -15,12 +15,7 @@ float Sonar::getDistance(){
   long duration, distance;
 
   duration = this->newSonar->ping();
-  // Serial.print("ms: ");
-  // Serial.println(duration);
-
   distance = microsec_to_cm(duration);
-  // Serial.print("cm: ");
-  // Serial.println(distance);
 
   if (distance >= MAX_DISTANCE || distance <= 0) {
     return MAX_DISTANCE;

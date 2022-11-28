@@ -5,6 +5,8 @@
 #include <NewPing.h>
 #include "config.h"
 
+#define TRIG 8
+#define ECHO 7
 #define MAX_DISTANCE 200
 
 class Sonar {
@@ -12,14 +14,12 @@ public:
   Sonar(int trigPin, int echoPin);
   float getDistance();  
 
+  NewPing* newSonar = new NewPing(TRIG, ECHO, MAX_DISTANCE); 
 protected:
-  // in
   int echoPin;
-  // out
   int trigPin;  
 
 private:
-  NewPing* newSonar = new NewPing(S_TRIG_PIN, S_ECHO_PIN, MAX_DISTANCE); 
   float microsec_to_cm(float microsec);
 };
 #endif
