@@ -28,11 +28,6 @@ void WaterMonitorController::init(Scheduler* sched)
 
 SystemState WaterMonitorController::get_system_state()
 {
-    // if (Serial.availableForWrite()) {
-    //     Serial.print("Water surface distance: ");
-    //     Serial.println(this->water_surface_dist_);
-    // }
-
     if (this->water_surface_dist_ > this->water_level_1_) {
         return SystemState::Normal;
     } else if (this->water_surface_dist_ > this->water_level_2_) {

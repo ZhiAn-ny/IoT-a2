@@ -22,13 +22,13 @@ namespace bridge_control {
 
     class WaterMonitorController {
       private:
-        const float water_level_1_ = 100; // 100 cm
-        const float water_level_2_ = 50;
-        const float water_level_max_ = 30;
+        const float water_level_1_ = 150; // 100 cm
+        const float water_level_2_ = 70;
+        const float water_level_max_ = 50;
 
-        const int pe_normal_ = 500; // 500 millis
-        const int pe_prealarm_ = 300; // 300 millis
-        const int pe_alarm_ = 100; // 100 millis
+        const int pe_normal_ = 5000; // 500 millis
+        const int pe_prealarm_ = 2000; // 300 millis
+        const int pe_alarm_ = 500; // 100 millis
 
         float water_surface_dist_ = 150.0;
 
