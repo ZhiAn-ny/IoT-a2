@@ -41,6 +41,18 @@ void LCD::print_water_distance(float n)
     this->lcd->print(n);
 }
 
+void LCD::print_water_and_degrees(float wtr, int deg)
+{
+    this->lcd->clear();
+
+    this->lcd->setCursor(0, 0);
+    this->lcd->print("Water: ");
+    this->lcd->print(wtr);
+    this->lcd->setCursor(0, 1);
+    this->lcd->print("Valve: ");
+    this->lcd->print(deg);
+}
+
 void LCD::clear()
 {
     this->lcd->clear();

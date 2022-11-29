@@ -12,10 +12,13 @@ class LCD {
 
     public:
         void init();
+
         void print_pre_alarm();
         void print_alarm();
         void print_normal();
+
         void print_water_distance(float n);
+        void print_water_and_degrees(float wtr, int deg);
         void clear();
 
 };
