@@ -7,6 +7,7 @@
 #include "config.h"
 #include "Sonar.h"
 #include "Scheduler.h"
+#include "Lcd.h"
 
 using namespace bridge_scheduling::tasks;
 
@@ -35,28 +36,39 @@ namespace bridge_control {
         Light* green_ = nullptr;
         Light* red_ = nullptr;
 
+        LCD display_;
+
         Task*  water_sampling_task_ = nullptr;
         Task* led_blink_task_ = nullptr;
 
         SystemState state_ = SystemState::Undefined;
 
+        /**
+         * Checks the distance from the water surface
+         * @return the system state
+         */
         SystemState get_system_state();
 
         /**
-         * @params green - the pin on which the green light is connected
-         * @params red - the pin on which the red light is connected
+         * @param green - the pin on which the green light is connected
+         * @param red - the pin on which the red light is connected
          */
         void init_lights(int green, int red);
+        void set_tasks(Scheduler* sched);
+        void init_display();
 
         void set_system_state_normal();
         void set_system_state_prealarm();
         void set_system_state_alarm();
+
+        void update_state();
 
       public:
         WaterMonitorController();
         ~WaterMonitorController();
 
         void init(Scheduler* sched);
+        void loop();
         void handle_current_state();
         bool is_in_alarm_state();
     };

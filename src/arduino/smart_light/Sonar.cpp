@@ -9,6 +9,8 @@ const float vs = 331.45 + 0.62*20;
 Sonar::Sonar(int trigPin, int echoPin){
   this->trigPin = trigPin;
   this->echoPin = echoPin;
+
+  this->newSonar = new NewPing(trigPin, echoPin, MAX_DISTANCE);
 }
 
 float Sonar::getDistance(){

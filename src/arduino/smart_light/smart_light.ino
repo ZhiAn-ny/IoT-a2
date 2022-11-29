@@ -19,7 +19,6 @@ WaterMonitorController water_monitor;
 IlluminationSystem bridge_lights;
 UserInputHandler user_input;
 
-LCD display;
 
 
 void setup() {
@@ -28,11 +27,10 @@ void setup() {
   Serial.println("Welcome to Smart Bridge Project");
 
   sched.init(100);
-  display.init();
 
 
  // user_input.init(&sched);
-  // water_monitor.init(&sched);
+  water_monitor.init(&sched);
   bridge_lights.init(&sched);
 
 }
@@ -40,7 +38,7 @@ void setup() {
 void loop() {
   sched.schedule();
   
-  // water_monitor.handle_current_state();
+  water_monitor.loop();
 
   // if (water_monitor.is_in_alarm_state()) {
   //   bridge_lights.turnOff();

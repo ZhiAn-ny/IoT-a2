@@ -35,7 +35,7 @@ namespace pins {
 
     namespace sonar {
         const unsigned int trigger = 6;
-        const unsigned int echo = 5;
+        const unsigned int echo = 7;
         const unsigned int max_distance = 200;
     }
 

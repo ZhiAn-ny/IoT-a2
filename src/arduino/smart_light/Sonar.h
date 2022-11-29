@@ -5,7 +5,7 @@
 #include <NewPing.h>
 #include "config.h"
 
-#define TRIG 8
+#define TRIG 6
 #define ECHO 7
 #define MAX_DISTANCE 200
 
@@ -19,8 +19,7 @@ protected:
   int trigPin;  
 
 private:
-  // Can't make reference to constants in config.h
-  NewPing* newSonar = new NewPing(TRIG, ECHO, MAX_DISTANCE); 
+  NewPing* newSonar;
   float microsec_to_cm(float microsec);
 };
 
