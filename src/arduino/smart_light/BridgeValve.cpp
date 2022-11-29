@@ -10,6 +10,9 @@ void BridgeValve::init(float* water_level)
     this->regulate_on_water_level->init(sampling_periods::pe_alarm);
     this->regulate_on_water_level->setInactive();
     this->is_auto_ = false;
+    
+    Serial.print("Valve initial opening degrees: ");
+    Serial.println(this->valve_.get_opening_degrees());
 }
 
 void BridgeValve::activate()

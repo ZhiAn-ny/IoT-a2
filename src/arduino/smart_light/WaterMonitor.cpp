@@ -1,6 +1,8 @@
 #include "WaterMonitor.h"
 
 using namespace bridge_control::water_monitor;
+using namespace bridge_control::water_level;
+using namespace bridge_control::sampling_periods;
 using namespace pins;
 
 WaterMonitorController::WaterMonitorController() {}
@@ -23,29 +25,26 @@ void WaterMonitorController::set_tasks(Scheduler* sched)
     sched->addTask(this->water_sampling_task_);
 }
 
-void WaterMonitorController::init_display()
-{
-  this->display_.init();
-}
-
 void WaterMonitorController::init(Scheduler* sched)
 {
     this->init_lights(led::green, led::red);
     this->set_tasks(sched);
-    this->init_display();
+    this->display_.init();
+    this->valve_.init(&this->water_surface_dist_);
     this->loop();
 }
 
 SystemState WaterMonitorController::get_system_state()
 {
-    if (this->water_surface_dist_ > this->water_level_1_) {
+    if (this->water_surface_dist_ > water_level_1) {
         return SystemState::Normal;
-    } else if (this->water_surface_dist_ > this->water_level_2_) {        
+    } else if (this->water_surface_dist_ > water_level_2) {        
         return SystemState::PreAlarm;
-    } else if (this->water_surface_dist_ > this->water_level_max_) {
+    } else if (this->water_surface_dist_ > water_level_max) {
         return SystemState::Alarm;
     }
-
+    Serial.print("State undefined, distance is ");
+    Serial.println(this->water_surface_dist_);
     return SystemState::Undefined;
 }
 
@@ -54,7 +53,7 @@ void WaterMonitorController::set_system_state_normal()
     this->green_->switchOn();
     this->red_->switchOff();
 
-    this->water_sampling_task_->init(this->pe_normal_);
+    this->water_sampling_task_->init(pe_normal);
     this->led_blink_task_->setInactive();
 
     this->state_ = SystemState::Normal;
@@ -67,7 +66,7 @@ void WaterMonitorController::set_system_state_prealarm()
     this->green_->switchOn();
     this->led_blink_task_->setActive();
     
-    this->water_sampling_task_->init(this->pe_prealarm_);
+    this->water_sampling_task_->init(pe_prealarm);
 
     this->state_ = SystemState::PreAlarm;
 }
@@ -79,7 +78,7 @@ void WaterMonitorController::set_system_state_alarm()
     this->red_->switchOn();
     this->green_->switchOff();
 
-    this->water_sampling_task_->init(this->pe_alarm_);
+    this->water_sampling_task_->init(pe_alarm);
 
     this->state_ = SystemState::Alarm;
 }
@@ -127,7 +126,8 @@ void WaterMonitorController::handle_current_state()
 
         break;
         case SystemState::Alarm:
-
+           // int degrees = this->valve_.get_opening_degrees();
+           // this->display_.print_water_and_degrees(this->water_surface_dist_, degrees);
 
         break;
         case SystemState::Undefined:
