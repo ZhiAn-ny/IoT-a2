@@ -28,7 +28,7 @@ namespace pins {
     }
 
     namespace led {
-        const unsigned int green = 10;
+        const unsigned int green = 1;
         const unsigned int red = 13;
         const unsigned int bridge = 9;
     }
@@ -44,7 +44,7 @@ namespace pins {
     }
 
     namespace user_btn {
-        const unsigned int btn = 1;
+        const unsigned int btn = 0;
     }
 
     namespace ls {
@@ -56,21 +56,25 @@ namespace pins {
     namespace pot {
         const unsigned int pot = A0;
     }
+
+    namespace servo {
+        const unsigned int servo = 10;
+    }
 }
 
-// // Pin connected to the light over the bridge
-// #define LED_PIN_A 5
-// // Pin connected to the green ligh
-// #define LED_PIN_B 12
-// // Pin connected to the red ligh
-// #define LED_PIN_C 13
-// #define Pir_PIN 2
-// #define LS_PIN A1
-// #define S_ECHO_PIN 7
-// #define S_TRIG_PIN 8
-// #define BUTTON_PIN 11
-// #define POT_PIN A0
-// // Minimum light level under which the light can be turned on
-// #define THl 50
+namespace bridge_control {
+
+    namespace water_level {
+        const float water_level_1 = 150; // 150 cm
+        const float water_level_2 = 70;
+        const float water_level_max = 30;
+    }
+
+    namespace sampling_periods {
+        const int pe_normal = 1000;
+        const int pe_prealarm = 500;
+        const int pe_alarm = 200;
+    }
+}
 
 #endif // !__CONFIG__

@@ -1,11 +1,19 @@
 #ifndef __MOTOR__ 
 #define __MOTOR__
+
 #include <Servo.h>
+#include "config.h"
+
 class Motor {
+private:
+    Servo valve_;    
+    int opening_degrees_;      
+
 public:
- Motor(int motorPin,int potPin );
-  float valve_opened();     
-protected:
-  int motorPin,potPin;  
+    void init();
+    int get_opening_degrees();
+    void open_valve(int degrees);
+ 
 };
+
 #endif
