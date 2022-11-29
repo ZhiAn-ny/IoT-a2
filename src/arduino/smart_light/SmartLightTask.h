@@ -7,6 +7,8 @@
 #include "PirSensor.h"
 #include "PirSensor.h"
 
+using namespace pins;
+
 class SmartLightTask: public Task {
 
   Led* led;

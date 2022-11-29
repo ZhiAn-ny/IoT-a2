@@ -1,11 +1,12 @@
 #include "UserInpuntEnableTask.h"
 
 using namespace bridge_scheduling::tasks;
+using namespace pins;
 
 InputEnableTask::InputEnableTask(bool* enabled)
 {
     this->enabled_ = enabled;
-    this->button_ = new ButtonImpl(BUTTON_PIN);
+    this->button_ = new ButtonImpl(user_btn::btn);
 }
 
 void InputEnableTask::init(int period)

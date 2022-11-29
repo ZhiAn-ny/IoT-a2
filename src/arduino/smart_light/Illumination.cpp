@@ -1,13 +1,14 @@
 #include "Illumination.h"
 
 using namespace bridge_control::illumination;
+using namespace pins::led;
 
 IlluminationSystem::IlluminationSystem() {}
 IlluminationSystem::~IlluminationSystem() {}
 
 void IlluminationSystem::init(Scheduler* sched)
 {
-    this->bridge_lights = new Led(LED_PIN_A);
+    this->bridge_lights = new Led(bridge);
 
     this->smart_light_task = new SmartLightTask();
     this->smart_light_task->init(100);

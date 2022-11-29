@@ -14,12 +14,14 @@ public:
   Sonar(int trigPin, int echoPin);
   float getDistance();  
 
-  NewPing* newSonar = new NewPing(TRIG, ECHO, MAX_DISTANCE); 
 protected:
   int echoPin;
   int trigPin;  
 
 private:
+  // Can't make reference to constants in config.h
+  NewPing* newSonar = new NewPing(TRIG, ECHO, MAX_DISTANCE); 
   float microsec_to_cm(float microsec);
 };
+
 #endif

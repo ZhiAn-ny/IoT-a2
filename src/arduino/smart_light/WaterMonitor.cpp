@@ -1,6 +1,7 @@
 #include "WaterMonitor.h"
 
 using namespace bridge_control::water_monitor;
+using namespace pins;
 
 WaterMonitorController::WaterMonitorController() {}
 WaterMonitorController::~WaterMonitorController() {}
@@ -13,15 +14,15 @@ void WaterMonitorController::init_lights(int green, int red)
 
 void WaterMonitorController::init(Scheduler* sched)
 {
-    this->init_lights(LED_PIN_B, LED_PIN_C);
+    this->init_lights(led::green, led::red);
 
-    this->led_blink_task_ = new BlinkTask(LED_PIN_C);
+    this->led_blink_task_ = new BlinkTask(led::green);
     this->led_blink_task_->init(2000); // blink every 2 seconds
     this->led_blink_task_->setInactive();
     sched->addTask(this->led_blink_task_);
 
-   this->water_sampling_task_ = new WaterSamplingTask(&this->water_surface_dist_);
-   sched->addTask(this->water_sampling_task_);
+    this->water_sampling_task_ = new WaterSamplingTask(&this->water_surface_dist_);
+    sched->addTask(this->water_sampling_task_);
 
     this->handle_current_state();
 }

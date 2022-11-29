@@ -1,10 +1,11 @@
 #include "WaterSampling.h"
 
 using namespace bridge_scheduling::tasks;
+using namespace pins;
 
 WaterSamplingTask::WaterSamplingTask(float* water_level)
 {
-    this->sonar_ = new Sonar(S_TRIG_PIN, S_ECHO_PIN);
+    this->sonar_ = new Sonar(sonar::trigger, sonar::echo);
     this->water_surface_dist_ = water_level;
 }
 
@@ -20,6 +21,4 @@ void WaterSamplingTask::tick()
     float d = this->sonar_->getDistance();
     
     *this->water_surface_dist_ = this->sonar_->getDistance();
-    
-    Serial.println(d);
 }
