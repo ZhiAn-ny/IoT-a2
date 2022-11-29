@@ -1,7 +1,6 @@
 #include "SmartLightTask.h"
 
-#define DEBUG
-
+// #define DEBUG
 
 SmartLightTask::SmartLightTask(){
   
@@ -19,10 +18,13 @@ void SmartLightTask::tick() {
   if (!this->isActive()) return;
 
   unsigned int light_intensity = lightSensor->getLightIntensity();
+  bool has_detected_somebody = pirSensor->detect();
 
 #ifdef DEBUG
   Serial.print("Light level: ");
-  Serial.println(light_intensity);
+  Serial.print(light_intensity);
+  Serial.print(" | detected: ");
+  Serial.println(has_detected_somebody);
 #endif // !DEBUG
 
   if (light_intensity > ls::THl) {
@@ -31,7 +33,7 @@ void SmartLightTask::tick() {
       return;
   }
 
-  if(pirSensor->detect() == true ){
+  if(has_detected_somebody){
     // Someone is passing on the bridge
     led->switchOn();
     t = millis();
