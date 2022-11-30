@@ -1,13 +1,15 @@
 #ifndef __MOTOR__ 
 #define __MOTOR__
 
-#include <Servo.h>
+// #include <Servo.h>
+#include <ServoTimer2.h>
 #include "config.h"
 
 class Motor {
 private:
-    Servo valve_;    
-    int opening_degrees_;      
+    ServoTimer2 valve_;    
+    int opening_degrees_;  
+    bool is_initialized_ = false;    
 
 public:
     void init();

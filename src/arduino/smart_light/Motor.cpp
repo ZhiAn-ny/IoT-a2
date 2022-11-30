@@ -1,8 +1,10 @@
 #include "Motor.h"
 
+#define DEBUG
 
 void Motor::init()
 {
+    this->is_initialized_ = true;
     this->valve_.attach(pins::servo::servo);
     this->valve_.write(0);
     this->opening_degrees_ = 0;
@@ -10,18 +12,31 @@ void Motor::init()
 
 void Motor::open_valve(int degrees)
 {
+#ifdef DEBUG
+    Serial.print("Opening: "); Serial.println(degrees);
+#endif // !DEBUG
+
+    //if (is_initialized_) return;
+
+    //this->valve_.attach(pins::servo::servo);
+
     if (degrees <= 0) {
-        this->valve_.write(0);
+        this->valve_.write(750);
         this->opening_degrees_ = 0;
         return;
     }
     if (degrees >= 180) {
-        this->valve_.write(180);
+        this->valve_.write(2250);
         this->opening_degrees_ = 180;
         return;
     }
-    this->valve_.write(degrees);
+    
+    int x = degrees * 2250 / 180;
+    this->valve_.write(x);
     this->opening_degrees_ = degrees;
+
+    // if (this->valve_.attached())
+    //     this->valve_.detach();
 }
 
 int Motor::get_opening_degrees()

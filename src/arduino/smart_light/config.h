@@ -30,7 +30,7 @@ namespace pins {
     namespace led {
         const unsigned int green = A4;
         const unsigned int red = 13;
-        const unsigned int bridge = 9;
+        const unsigned int bridge = 10;
     }
 
     namespace sonar {
@@ -58,7 +58,7 @@ namespace pins {
     }
 
     namespace servo {
-        const unsigned int servo = 10;
+        const unsigned int servo = 9;
     }
 }
 

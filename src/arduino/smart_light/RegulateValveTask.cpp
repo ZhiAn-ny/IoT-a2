@@ -37,5 +37,5 @@ void RegulateValveTask::tick()
 #endif // !DEBUG
 
 
-    //this->valve_->open_valve(deg);
+    this->valve_->open_valve(deg);
 }

@@ -5,14 +5,14 @@ using namespace bridge_scheduling::tasks;
 
 void BridgeValve::init(Scheduler* sched, float* water_level)
 {
-    //this->valve_.init();
+    this->valve_.init();
     this->regulate_on_water_level = new RegulateValveTask(&this->valve_, water_level);
     this->regulate_on_water_level->init(sampling_periods::pe_alarm);
     this->regulate_on_water_level->setActive();
     sched->addTask(this->regulate_on_water_level);
 
     int degrees = this->valve_.get_opening_degrees();
-    // this->valve_.open_valve(degrees);
+    this->valve_.open_valve(degrees);
 
     this->is_auto_ = false;
     
