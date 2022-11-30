@@ -28,7 +28,7 @@ namespace pins {
     }
 
     namespace led {
-        const unsigned int green = 1;
+        const unsigned int green = A4;
         const unsigned int red = 13;
         const unsigned int bridge = 9;
     }
