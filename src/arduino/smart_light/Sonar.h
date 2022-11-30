@@ -5,9 +5,6 @@
 #include <NewPing.h>
 #include "config.h"
 
-#define TRIG 6
-#define ECHO 7
-#define MAX_DISTANCE 200
 
 class Sonar {
 public:
