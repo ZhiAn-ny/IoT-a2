@@ -5,7 +5,7 @@ using namespace bridge_scheduling::tasks;
 
 void BridgeValve::init(Scheduler* sched, float* water_level)
 {
-    this->valve_.init();
+    this->valve_.attach();
     this->regulate_on_water_level = new RegulateValveTask(&this->valve_, water_level);
     this->regulate_on_water_level->init(sampling_periods::pe_alarm);
     this->regulate_on_water_level->setActive();
@@ -24,6 +24,7 @@ void BridgeValve::activate()
 {
     this->regulate_on_water_level->setActive();
     Serial.println("Valve activated");
+    this->valve_.attach();
     this->is_auto_ = true;
 }
 
@@ -31,6 +32,7 @@ void BridgeValve::deactivate()
 {
     this->regulate_on_water_level->setInactive();
     Serial.println("Valve deactivated");
+    this->valve_.detach();
 
     this->is_auto_ = false;
 }

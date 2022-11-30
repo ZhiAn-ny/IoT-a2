@@ -1,6 +1,6 @@
 #include "RegulateValveTask.h"
 
-#define DEBUG
+// #define DEBUG
 
 using namespace bridge_scheduling::tasks;
 using namespace bridge_control::water_level;

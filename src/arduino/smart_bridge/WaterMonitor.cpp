@@ -59,6 +59,7 @@ void WaterMonitorController::set_system_state_normal()
     this->water_sampling_task_->init(pe_normal);
     this->led_blink_task_->setInactive();
 
+    this->valve_.open_valve(0);
     this->valve_.deactivate();
 
     this->state_ = SystemState::Normal;
@@ -72,6 +73,7 @@ void WaterMonitorController::set_system_state_prealarm()
     this->green_->switchOn();
     this->led_blink_task_->setActive();
     
+    this->valve_.open_valve(0);
     this->valve_.deactivate();
     this->water_sampling_task_->init(pe_prealarm);
 
