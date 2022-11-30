@@ -30,7 +30,7 @@ void WaterMonitorController::init(Scheduler* sched)
     this->init_lights(led::green, led::red);
     this->set_tasks(sched);
     this->display_.init();
-    this->valve_.init(&this->water_surface_dist_);
+    this->valve_.init(sched, &this->water_surface_dist_);
     this->loop();
 }
 
@@ -38,8 +38,10 @@ SystemState WaterMonitorController::get_system_state()
 {
     if (this->water_surface_dist_ > water_level_1) {
         return SystemState::Normal;
+
     } else if (this->water_surface_dist_ > water_level_2) {        
         return SystemState::PreAlarm;
+
     } else if (this->water_surface_dist_ > water_level_max) {
         return SystemState::Alarm;
     }
@@ -50,22 +52,27 @@ SystemState WaterMonitorController::get_system_state()
 
 void WaterMonitorController::set_system_state_normal()
 {
+    Serial.println("NORMAL STATE");
     this->green_->switchOn();
     this->red_->switchOff();
 
     this->water_sampling_task_->init(pe_normal);
     this->led_blink_task_->setInactive();
 
+    this->valve_.deactivate();
+
     this->state_ = SystemState::Normal;
 }
 
 void WaterMonitorController::set_system_state_prealarm()
 {
+    Serial.println("PRE-ALARM STATE");
     this->display_.print_pre_alarm();
 
     this->green_->switchOn();
     this->led_blink_task_->setActive();
     
+    this->valve_.deactivate();
     this->water_sampling_task_->init(pe_prealarm);
 
     this->state_ = SystemState::PreAlarm;
@@ -73,12 +80,14 @@ void WaterMonitorController::set_system_state_prealarm()
 
 void WaterMonitorController::set_system_state_alarm()
 {
+    Serial.println("ALARM STATE");
     this->led_blink_task_->setInactive();
 
     this->red_->switchOn();
     this->green_->switchOff();
 
     this->water_sampling_task_->init(pe_alarm);
+    this->valve_.activate();
 
     this->state_ = SystemState::Alarm;
 }
@@ -126,8 +135,9 @@ void WaterMonitorController::handle_current_state()
 
         break;
         case SystemState::Alarm:
-           // int degrees = this->valve_.get_opening_degrees();
-           // this->display_.print_water_and_degrees(this->water_surface_dist_, degrees);
+        this->green_->switchOff();
+           int degrees = this->valve_.get_opening_degrees();
+           this->display_.print_water_and_degrees(this->water_surface_dist_, degrees);
 
         break;
         case SystemState::Undefined:

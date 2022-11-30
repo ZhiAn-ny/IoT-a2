@@ -3,6 +3,7 @@
 
 #include "RegulateValveTask.h"
 #include "Motor.h"
+#include "Scheduler.h"
 
 using namespace pins::servo;
 
@@ -16,7 +17,7 @@ namespace bridge_control {
             bool is_auto_ = true;;
 
         public:
-            void init(float* water_level);
+            void init(Scheduler* sched, float* water_level);
             bool is_auto();
             void activate();
             void deactivate();

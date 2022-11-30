@@ -3,27 +3,35 @@
 using namespace bridge_control::bridge_valve;
 using namespace bridge_scheduling::tasks;
 
-void BridgeValve::init(float* water_level)
+void BridgeValve::init(Scheduler* sched, float* water_level)
 {
-    this->valve_.init();
+    //this->valve_.init();
     this->regulate_on_water_level = new RegulateValveTask(&this->valve_, water_level);
     this->regulate_on_water_level->init(sampling_periods::pe_alarm);
-    this->regulate_on_water_level->setInactive();
+    this->regulate_on_water_level->setActive();
+    sched->addTask(this->regulate_on_water_level);
+
+    int degrees = this->valve_.get_opening_degrees();
+    // this->valve_.open_valve(degrees);
+
     this->is_auto_ = false;
     
     Serial.print("Valve initial opening degrees: ");
-    Serial.println(this->valve_.get_opening_degrees());
+    Serial.println(degrees);
 }
 
 void BridgeValve::activate()
 {
     this->regulate_on_water_level->setActive();
+    Serial.println("Valve activated");
     this->is_auto_ = true;
 }
 
 void BridgeValve::deactivate()
 {
     this->regulate_on_water_level->setInactive();
+    Serial.println("Valve deactivated");
+
     this->is_auto_ = false;
 }
 
