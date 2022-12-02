@@ -26,9 +26,12 @@ float Sonar::getDistance(){
 #ifdef DEBUG
   Serial.print("Duration: "); Serial.print(duration); 
   Serial.print(" distance: "); Serial.println(distance);
-  #endif //!DEBUG
+#endif //!DEBUG
 
-  if (distance >= max_distance || distance <= 0) {
+  if (distance <= 0) {
+    return 0;
+  }
+  if (distance >= max_distance) {
     return max_distance;
   }
 
