@@ -40,10 +40,12 @@ void loop() {
   
   water_monitor.loop();
 
-  // if (water_monitor.is_in_alarm_state()) {
-  //   bridge_lights.turnOff();
+  if (water_monitor.is_in_alarm_state()) {
+    bridge_lights.turnOff();
     
-  //   // TODO: valve open by a degrees which depends on water level, etc.
-  // }
+    // TODO: valve open by a degrees which depends on water level, etc.
+  } else {
+    bridge_lights.turnOn();
+  }
 
 }

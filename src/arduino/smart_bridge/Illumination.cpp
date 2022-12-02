@@ -24,5 +24,5 @@ void IlluminationSystem::turnOff()
 void IlluminationSystem::turnOn()
 {
     this->smart_light_task->setActive();
-    this->bridge_lights->switchOn();
+    //this->bridge_lights->switchOn();
 }
