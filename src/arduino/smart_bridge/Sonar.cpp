@@ -4,7 +4,7 @@
    */
 #include "Sonar.h"
 
-#define DEBUG
+// #define DEBUG
 
 using namespace pins::sonar;
 

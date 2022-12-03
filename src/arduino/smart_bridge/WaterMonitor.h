@@ -10,7 +10,6 @@
 #include "Lcd.h"
 #include "BridgeValve.h"
 
-using namespace bridge_control::bridge_valve;
 using namespace bridge_scheduling::tasks;
 
 namespace bridge_control {
@@ -31,7 +30,8 @@ namespace bridge_control {
         Light* red_ = nullptr;
 
         LCD display_;
-        BridgeValve valve_;
+
+        BridgeValve valve_controller_;
 
         Task*  water_sampling_task_ = nullptr;
         Task* led_blink_task_ = nullptr;
