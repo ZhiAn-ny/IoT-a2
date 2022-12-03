@@ -4,7 +4,7 @@
    */
 #include "Sonar.h"
 
-// #define DEBUG
+//#define DEBUG
 
 using namespace pins::sonar;
 
@@ -28,11 +28,12 @@ float Sonar::getDistance(){
   Serial.print(" distance: "); Serial.println(distance);
 #endif //!DEBUG
 
+  if (distance >= max_distance || duration == 0) {
+    // the target is too far, the sound is not coming back
+    return max_distance;
+  }
   if (distance <= 0) {
     return 0;
-  }
-  if (distance >= max_distance) {
-    return max_distance;
   }
 
   return distance;
