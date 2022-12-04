@@ -8,6 +8,7 @@
 #include "Sonar.h"
 #include "Scheduler.h"
 #include "Lcd.h"
+#include "Button.h"
 #include "BridgeValve.h"
 
 using namespace bridge_scheduling::tasks;
@@ -28,7 +29,7 @@ namespace bridge_control {
 
         Light* green_ = nullptr;
         Light* red_ = nullptr;
-
+        //Button button_;
         LCD display_;
 
         BridgeValve valve_controller_;
