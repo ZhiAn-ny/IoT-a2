@@ -11,10 +11,11 @@
 #include "LightSensorImpl.h"
 #include "PirSensor.h"
 
-#define DEBUG_SONAR
-#define DEBUG_SERVO
-//  #define USE_NEW_PING
+// #define DEBUG_SONAR
+// #define DEBUG_SERVO
+#define DEBUG_INPUTS
 
+//  #define USE_NEW_PING
 #define USE_BRIDGE_VALVE
 
 
@@ -49,18 +50,15 @@ namespace pins {
         const unsigned int pir = 8;
     }
 
-    namespace user_btn {
-        const unsigned int btn = 0;
+    namespace user_input {
+        const unsigned int btn = A5;
+        const unsigned int pot = A0;
     }
 
     namespace ls {
         const unsigned int ls = A1;
         // Minimum light level under which the light can be turned on
         const unsigned int THl = 50;
-    }
-
-    namespace pot {
-        const unsigned int pot = A0;
     }
 
     namespace servo {
