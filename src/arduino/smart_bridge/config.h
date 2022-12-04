@@ -11,6 +11,9 @@
 #include "LightSensorImpl.h"
 #include "PirSensor.h"
 
+#define DEBUG_SONAR
+//  #define USE_NEW_PING
+
 
 // THE PIN THAT MUST BE USED
 
