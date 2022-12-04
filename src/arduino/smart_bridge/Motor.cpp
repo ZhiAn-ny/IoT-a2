@@ -1,12 +1,15 @@
 #include "Motor.h"
 
-// #define DEBUG
+
+Motor::Motor() {
+    this->valve_.attach(pins::servo::servo);
+    this->valve_.write(0);
+    this->opening_degrees_ = 0;
+}
 
 void Motor::attach()
 {
     this->valve_.attach(pins::servo::servo);
-    this->valve_.write(0);
-    this->opening_degrees_ = 0;
 }
 
 void Motor::detach()
@@ -17,23 +20,22 @@ void Motor::detach()
 
 void Motor::open_valve(int degrees)
 {
-#ifdef DEBUG
-    Serial.print("Opening: "); Serial.println(degrees);
-#endif // !DEBUG
+    int pulse_width = 0;
+    pulse_width = map(degrees, 0, 181, 750, 2251);
 
     if (degrees <= 0) {
-        this->valve_.write(750);
-        this->opening_degrees_ = 0;
-        return;
+        pulse_width = 750;
     }
     if (degrees >= 180) {
-        this->valve_.write(2250);
-        this->opening_degrees_ = 180;
-        return;
+        pulse_width = 2250;
     }
 
-    int x = degrees * 2250 / 180;
-    this->valve_.write(x);
+#ifdef DEBUG_SERVO
+    Serial.print("Degrees: "); Serial.print(degrees);
+    Serial.print(" | PW: "); Serial.println(pulse_width);
+#endif // !DEBUG_SERVO
+
+    this->valve_.write(pulse_width);
     this->opening_degrees_ = degrees;
 
 }
@@ -42,13 +44,6 @@ int Motor::get_opening_degrees()
 {
     return this->opening_degrees_;
 }
-
-
-// Motor::Motor(int potPin,int motorPin){
-//   this->potPin = potPin; 
-//   this->motorPin = motorPin; 
- 
-// }
 
 
 // float valve_opened(){

@@ -1,6 +1,5 @@
 #include "RegulateValveTask.h"
 
-// #define DEBUG
 
 using namespace bridge_scheduling::tasks;
 using namespace bridge_control::water_level;
@@ -31,11 +30,6 @@ void RegulateValveTask::init(int period)
 void RegulateValveTask::tick()
 {
     int deg = this->get_degrees();
-#ifdef DEBUG
-    Serial.print("Degrees: "); Serial.println(deg);
-
-#endif // !DEBUG
-
 
     this->valve_->open_valve(deg);
 }

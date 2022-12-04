@@ -30,7 +30,11 @@ void WaterMonitorController::init(Scheduler* sched)
     this->init_lights(led::green, led::red);
     this->set_tasks(sched);
     this->display_.init();
+
+#ifdef USE_BRIDGE_VALVE
     this->valve_controller_.init(sched, &this->water_surface_dist_);
+#endif
+
     this->loop();
 }
 
@@ -45,8 +49,8 @@ SystemState WaterMonitorController::get_system_state()
     } else if (this->water_surface_dist_ > water_level_max) {
         return SystemState::Alarm;
     }
-    Serial.print("State undefined, distance is ");
-    Serial.println(this->water_surface_dist_);
+    //Serial.print("State undefined, distance is ");
+    //Serial.println(this->water_surface_dist_);
     return SystemState::Undefined;
 }
 
@@ -58,8 +62,9 @@ void WaterMonitorController::set_system_state_normal()
     this->led_blink_task_->setInactive();
 
     this->water_sampling_task_->init(pe_normal);
-
+#ifdef USE_BRIDGE_VALVE
     this->valve_controller_.deactivate();
+#endif
 
     this->state_ = SystemState::Normal;
 }
@@ -73,8 +78,9 @@ void WaterMonitorController::set_system_state_prealarm()
     this->led_blink_task_->setActive();
     
     this->water_sampling_task_->init(pe_prealarm);
-
+#ifdef USE_BRIDGE_VALVE
     this->valve_controller_.deactivate();
+#endif
 
     this->state_ = SystemState::PreAlarm;
 }
@@ -88,8 +94,9 @@ void WaterMonitorController::set_system_state_alarm()
     this->green_->switchOff();
 
     this->water_sampling_task_->init(pe_alarm);
-
+#ifdef USE_BRIDGE_VALVE
     this->valve_controller_.activate();
+#endif
 
     this->state_ = SystemState::Alarm;
 }
@@ -137,9 +144,11 @@ void WaterMonitorController::handle_current_state()
 
         break;
         case SystemState::Alarm:
+
+#ifdef USE_BRIDGE_VALVE
             int deg = this->valve_controller_.get_opening_degrees();
             this->display_.print_water_and_degrees(this->water_surface_dist_, deg);
-
+#endif
         break;
         case SystemState::Undefined:
         break;

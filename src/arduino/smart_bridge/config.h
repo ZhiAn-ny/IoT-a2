@@ -12,11 +12,14 @@
 #include "PirSensor.h"
 
 #define DEBUG_SONAR
+#define DEBUG_SERVO
 //  #define USE_NEW_PING
 
+#define USE_BRIDGE_VALVE
 
-// THE PIN THAT MUST BE USED
 
+
+// THE PIN THAT MUST BE USED IN THE CIRCUIT
 namespace pins {
     namespace lcd {
         const unsigned int RS = 12;

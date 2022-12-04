@@ -8,13 +8,14 @@
 using namespace pins::servo;
 
 namespace bridge_control {
-    namespace bridge_valve {
+    namespace water_monitor {
 
         class BridgeValve {
         private:
-            Motor valve_;
+            Motor* valve_;
             Task* regulate_on_water_level = nullptr;
-            bool is_auto_ = true;;
+            bool is_auto_ = true;
+            bool is_active_ = false;
 
         public:
             void init(Scheduler* sched, float* water_level);
@@ -22,7 +23,6 @@ namespace bridge_control {
             void activate();
             void deactivate();
             int get_opening_degrees();
-            void open_valve(int degrees);
 
 
         };
