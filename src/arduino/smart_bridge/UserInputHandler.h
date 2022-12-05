@@ -14,14 +14,14 @@ namespace bridge_control {
             bool enabled_ = false;
             Motor* valve_ = nullptr;
             Task* input_enable_task_ = nullptr;
-            Task* command_valve_ = nullptr;
+            Task* manual_cmd_task_ = nullptr;
 
         public:
             UserInputHandler();
             ~UserInputHandler();
 
             bool isEnabled();
-            void init(Scheduler* sched, Motor* valve);
+            void init(Scheduler* sched, Motor* valve, Task* auto_reg);
 
             void disable();
             void enable();
