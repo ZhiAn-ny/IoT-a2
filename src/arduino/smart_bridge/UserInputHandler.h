@@ -3,6 +3,7 @@
 
 #include "Scheduler.h"
 #include "UserInpuntEnableTask.h"
+#include "ManualValveControlTask.h"
 #include "ButtonImpl.h"
 
 namespace bridge_control {
@@ -10,17 +11,20 @@ namespace bridge_control {
 
         class UserInputHandler{
         private:
-            bool enabled_;
-            Task* button_pressed_task_ = nullptr;
+            bool enabled_ = false;
+            Motor* valve_ = nullptr;
+            Task* input_enable_task_ = nullptr;
+            Task* command_valve_ = nullptr;
 
         public:
             UserInputHandler();
             ~UserInputHandler();
 
             bool isEnabled();
-            void init(Scheduler* sched);
+            void init(Scheduler* sched, Motor* valve);
 
-
+            void disable();
+            void enable();
 
         };
     

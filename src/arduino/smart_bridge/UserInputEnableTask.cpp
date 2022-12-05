@@ -6,7 +6,7 @@ using namespace pins;
 InputEnableTask::InputEnableTask(bool* enabled)
 {
     this->enabled_ = enabled;
-    this->button_ = new ButtonImpl(user_btn::btn);
+    this->button_ = new ButtonImpl(user_input::btn);
 }
 
 void InputEnableTask::init(int period)
@@ -16,11 +16,11 @@ void InputEnableTask::init(int period)
 
 void InputEnableTask::tick()
 {
-    if (this->button_->isPressed()) {
-        Serial.println("Click!");
-        *this->enabled_ = !(*this->enabled_);
-        
-    }
+    if (!this->isActive()) return;
 
+    if (this->button_->isPressed()) {
+        *this->enabled_ = !(*this->enabled_);
+        Serial.println("Click");
+    }
 }
 
