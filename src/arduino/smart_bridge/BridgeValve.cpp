@@ -12,9 +12,7 @@ void BridgeValve::init(Scheduler* sched, float* water_level)
     sched->addTask(this->regulate_on_water_level);
 
     this->user_input_ = new UserInputHandler();
-    this->user_input_->init(sched, this->valve_);
-
-    
+    this->user_input_->init(sched, this->valve_, this->regulate_on_water_level);
 
     this->is_auto_ = true;
     this->deactivate();
@@ -58,12 +56,3 @@ int BridgeValve::get_opening_degrees()
 {
     return this->valve_->get_opening_degrees();
 }
-/*int BridgeValve::get_opening_degrees_from_pot()
-{
-    return this->pot->pot_value();
-}*/
-
-/*int BridgeValve::open_valve(int degree)
-{
-    return this->valve_->open_valve(degree);
-}*/

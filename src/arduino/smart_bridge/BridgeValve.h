@@ -16,7 +16,6 @@ namespace bridge_control {
 
         class BridgeValve {
         private:
-           // Potentiometer* pot(pins::pot::pot);
             Motor* valve_;
             Task* regulate_on_water_level = nullptr;
             
@@ -31,8 +30,6 @@ namespace bridge_control {
             void activate();
             void deactivate();
             int get_opening_degrees();
-           // int get_opening_degrees_from_pot();
-           // void open_valve(int degrees);
 
         };
 

@@ -3,9 +3,11 @@
 using namespace bridge_scheduling::tasks;
 using namespace pins;
 
-InputEnableTask::InputEnableTask(bool* enabled)
+InputEnableTask::InputEnableTask(Task* manual_input_task, Task* auto_reg)
 {
-    this->enabled_ = enabled;
+    this->auto_reg_ = auto_reg;
+    this->manual_input_task_ = manual_input_task;
+    this->manual_input_task_->setInactive();
     this->button_ = new ButtonImpl(user_input::btn);
 }
 
@@ -21,8 +23,17 @@ void InputEnableTask::tick()
     bool press = this->button_->isPressed();
 
     if (press && !(this->prev_btn_val_ == press)) {
-        *this->enabled_ = !(*this->enabled_);
-        Serial.println("Click");
+
+        if (this->manual_input_task_->isActive()) {
+            this->auto_reg_->setActive();
+            this->manual_input_task_->setInactive();
+            Serial.println("Auto");
+        } else {
+            this->auto_reg_->setInactive();
+            this->manual_input_task_->setActive();
+            Serial.println("Manual");
+        }
+        
     }
     
     this->prev_btn_val_ = press;

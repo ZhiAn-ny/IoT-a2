@@ -148,11 +148,6 @@ void WaterMonitorController::handle_current_state()
 #ifdef USE_BRIDGE_VALVE
         int deg = this->valve_controller_.get_opening_degrees();
         this->display_.print_water_and_degrees(this->water_surface_dist_, deg);
-        /*if (this->button_.isPressed()) {
-         int deg1=this->valve_controller_.get_opening_degrees_from_pot();
-          this->valve_controller_.open_valve(deg1);
-          this->display_.print_water_and_degrees(this->water_surface_dist_, deg1);
-        }*/
 #endif
         
         break;

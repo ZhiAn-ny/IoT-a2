@@ -15,6 +15,8 @@ void ManualValveControlTask::init(int period)
 
 void ManualValveControlTask::tick()
 {
+    if (!this->isActive()) return;
+
     int pot_value = this->pot_->pot_value();
     int deg = map(pot_value, 0, 1024, 0, 181);
 

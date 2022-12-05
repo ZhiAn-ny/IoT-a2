@@ -11,12 +11,13 @@ namespace bridge_scheduling {
 
         class InputEnableTask : public Task {
             private:
-                bool* enabled_ = nullptr;
+                Task* manual_input_task_ = nullptr;
+                Task* auto_reg_ = nullptr;
                 bool prev_btn_val_ = false;
                 Button* button_ = nullptr;
 
             public:
-                InputEnableTask(bool* enable);
+                InputEnableTask(Task* input_task, Task* auto_reg);
                 ~InputEnableTask();
 
                 void init(int period);
