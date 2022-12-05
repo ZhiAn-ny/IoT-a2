@@ -13,7 +13,7 @@ bool UserInputHandler::isEnabled()
 
 void UserInputHandler::init(Scheduler* sched, Motor* valve)
 {
-    this->command_valve_ = new ManualValveControlTask();
+    this->command_valve_ = new ManualValveControlTask(valve);
 
     this->input_enable_task_ = new InputEnableTask(&this->enabled_);
     this->input_enable_task_->init(100);

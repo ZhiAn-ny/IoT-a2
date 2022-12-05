@@ -18,9 +18,14 @@ void InputEnableTask::tick()
 {
     if (!this->isActive()) return;
 
-    if (this->button_->isPressed()) {
+    bool press = this->button_->isPressed();
+
+    if (press && !(this->prev_btn_val_ == press)) {
         *this->enabled_ = !(*this->enabled_);
         Serial.println("Click");
     }
+    
+    this->prev_btn_val_ = press;
+    
 }
 

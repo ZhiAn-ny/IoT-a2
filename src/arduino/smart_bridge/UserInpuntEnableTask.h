@@ -12,6 +12,7 @@ namespace bridge_scheduling {
         class InputEnableTask : public Task {
             private:
                 bool* enabled_ = nullptr;
+                bool prev_btn_val_ = false;
                 Button* button_ = nullptr;
 
             public:
