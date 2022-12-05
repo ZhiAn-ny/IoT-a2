@@ -51,3 +51,12 @@ int BridgeValve::get_opening_degrees()
 {
     return this->valve_->get_opening_degrees();
 }
+/*int BridgeValve::get_opening_degrees_from_pot()
+{
+    return this->pot->pot_value();
+}*/
+
+/*int BridgeValve::open_valve(int degree)
+{
+    return this->valve_->open_valve(degree);
+}*/
