@@ -7,7 +7,7 @@ MAX_WATER_LEVEL = 10
 
 class ArduinoBoard:
     __arduino: arv.Serial = arv.Serial(port='COM3', baudrate=19200, timeout=.1)
-
+    __state: str = ""
 
     def __read(self):
         data = self.__arduino.readline().decode('utf-8')
@@ -26,6 +26,14 @@ class ArduinoBoard:
                 wlv = cmd.split(":")[1]
                 if (wlv == "" or float(wlv) < MAX_WATER_LEVEL): return
                 self.__sample_water(float(wlv))
+
+            elif cmd.startswith("STATE:"):
+                state = cmd.split(":")[1]
+                if (state != ""): self.__state = state 
+            
+            elif cmd.startswith("MODE:"):
+                mode = cmd.split(":")[1]
+
 
             time.sleep(0.1)
 

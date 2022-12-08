@@ -3,8 +3,7 @@ from matplotlib import animation, style
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
-
-from board.ArduinoBoard import ArduinoBoard
+import threading as th
 
 style.use("ggplot")
 
@@ -12,6 +11,11 @@ class SmartBridgeGui:
     __win: tk.Tk = tk.Tk()
     __fig: Figure = None
     __plot = None
+    __state = None
+
+    def __update_state(self):
+        self.__state.config(text="AAA")
+
 
     def __animate(self, i):
         pullData = open('src\pc\\board\WaterSampling.data','r').read()
@@ -41,10 +45,33 @@ class SmartBridgeGui:
         height = str(int(self.__win.winfo_screenheight()/3*2))
 
         self.__win.geometry(width + "x" + height)
+        
+        f = tk.Frame(self.__win)
+        f1 = tk.Frame(f)
+
+        lbl = tk.Label(f1, text="System State: ", font=("Arial", 25))
+        lbl.pack(side = tk.LEFT)
+
+        self.__state = tk.Label(f1, text="", font=("Arial", 25))
+        self.__state.pack(side = tk.RIGHT)
+
+        f1.pack(side=tk.LEFT)
+        f2 = tk.Frame(self.__win)
+
+        lbl = tk.Label(f2, text="System Mode: ", font=("Arial", 18))
+        lbl.pack(side = tk.LEFT)
+
+        f2.pack(side = tk.RIGHT)
+        f.pack(side=tk.TOP)
+
 
     def __init__(self):
         self.__create_window()
         self.__add_plotter()
+
+        t = th.Thread(target=self.__update_state)
+        t.start()
+
         self.__anm = animation.FuncAnimation(self.__fig,
                                              self.__animate,
                                              interval=100)
