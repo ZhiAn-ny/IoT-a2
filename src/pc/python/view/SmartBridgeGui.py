@@ -37,6 +37,10 @@ class SmartBridgeGui:
             if len(eachLine)>1:
                 yar.append(float(eachLine))
         self.__plot.clear()
+        self.__plot.set_ylim(0, 200)
+        self.__plot.set_ylabel("Water Distance:")
+        self.__plot.set_xlabel("Time:")
+        self.__plot.set_xticks([])
         self.__plot.plot(yar)
 
     def __add_plotter(self):

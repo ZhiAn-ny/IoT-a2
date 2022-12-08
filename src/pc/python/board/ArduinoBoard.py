@@ -43,7 +43,9 @@ class ArduinoBoard:
 
             elif cmd.startswith("STATE:"):
                 state = cmd.split(":")[1]
-                if (state != ""): self.__state = state 
+                if (state == ""): continue
+                self.__state = state
+                self.__mode = "AUTO"
             
             elif cmd.startswith("MODE:"):
                 mode = cmd.split(":")[1]
