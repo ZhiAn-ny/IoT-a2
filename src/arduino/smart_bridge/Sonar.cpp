@@ -45,6 +45,7 @@ float Sonar::getDistance(){
   Serial.print("Duration: "); Serial.print(duration); 
   Serial.print(" distance: "); Serial.println(distance);
 #endif //!DEBUG_SONAR
+  Serial.print("W:"); Serial.println(distance);
 
   if (distance >= max_distance || duration == 0) {
     // the target is too far, the sound is not coming back

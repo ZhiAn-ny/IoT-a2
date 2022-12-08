@@ -27,11 +27,11 @@ void InputEnableTask::tick()
         if (this->manual_input_task_->isActive()) {
             this->auto_reg_->setActive();
             this->manual_input_task_->setInactive();
-            Serial.println("Auto");
+            Serial.println("MODE:AUTO");
         } else {
             this->auto_reg_->setInactive();
             this->manual_input_task_->setActive();
-            Serial.println("Manual");
+            Serial.println("MODE:MANUAL");
         }
         
     }

@@ -56,7 +56,7 @@ SystemState WaterMonitorController::get_system_state()
 
 void WaterMonitorController::set_system_state_normal()
 {
-    Serial.println("NORMAL STATE");
+    Serial.println("STATE:NORMAL");
     this->green_->switchOn();
     this->red_->switchOff();
     this->led_blink_task_->setInactive();
@@ -71,7 +71,7 @@ void WaterMonitorController::set_system_state_normal()
 
 void WaterMonitorController::set_system_state_prealarm()
 {
-    Serial.println("PRE-ALARM STATE");
+    Serial.println("STATE:PRE-ALARM");
     this->display_.print_pre_alarm();
 
     this->green_->switchOn();
@@ -87,7 +87,7 @@ void WaterMonitorController::set_system_state_prealarm()
 
 void WaterMonitorController::set_system_state_alarm()
 {
-    Serial.println("ALARM STATE");
+    Serial.println("STATE:ALARM");
     this->led_blink_task_->setInactive();
 
     this->red_->switchOn();

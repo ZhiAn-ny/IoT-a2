@@ -18,7 +18,6 @@ void WaterSamplingTask::init(int period)
 void WaterSamplingTask::tick()
 {
     if (!this->isActive()) return;
-    float d = this->sonar_->getDistance();
     
     *this->water_surface_dist_ = this->sonar_->getDistance();
 }
