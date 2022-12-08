@@ -15,13 +15,13 @@ class ArduinoBoard:
         return data.split("\r")[0]
 
     def __sample_water(self, water_level: float):
-        file = open('src\pc\\board\WaterSampling.data', 'a')
+        file = open('src\pc\python\\board\WaterSampling.data', 'a')
         file.write(str(water_level) + "\n")
         file.close()
 
     def __log_sys_info(self):
-        file = open('src\pc\\board\log.data', 'w')
-        json = '{"STATE" : "' + self.__state + '", "MODE" : "' + self.__mode + '"}'
+        file = open('src\pc\python\\board\log.data', 'w')
+        json = '{state : "' + self.__state + '", mode : "' + self.__mode + '"}'
         file.write(json)
         file.close()
 
@@ -46,7 +46,7 @@ class ArduinoBoard:
             time.sleep(0.1)
 
     def __init__(self):
-        f = open("src\pc\\board\WaterSampling.data", 'w')
+        f = open("src\pc\python\\board\WaterSampling.data", 'w')
         f.write("") # Delete file content
         f.close()
 

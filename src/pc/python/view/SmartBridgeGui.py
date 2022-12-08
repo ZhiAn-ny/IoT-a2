@@ -18,7 +18,7 @@ class SmartBridgeGui:
 
     def __update_state(self):
         while True:
-            pullData = open('src\pc\\board\log.data','r').read()
+            pullData = open('src\pc\python\\board\log.data','r').read()
             data = json.loads(pullData)     
 
             self.__state.config(text=data['STATE'])
@@ -29,7 +29,7 @@ class SmartBridgeGui:
 
 
     def __animate(self, i):
-        pullData = open('src\pc\\board\WaterSampling.data','r').read()
+        pullData = open('src\pc\python\\board\WaterSampling.data','r').read()
         dataArray = pullData.split('\n')
         yar=[]
         for eachLine in dataArray:
