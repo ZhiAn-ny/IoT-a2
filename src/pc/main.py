@@ -1,8 +1,12 @@
 # Imports
 from board.ArduinoBoard import ArduinoBoard
+from gui.SmartBridgeGui import SmartBridgeGui
 
 print("Program Start")
 uno = ArduinoBoard()
 
-while True:
-    print(uno.read())
+view = SmartBridgeGui()
+
+
+# while True:
+#     print(uno.read())
