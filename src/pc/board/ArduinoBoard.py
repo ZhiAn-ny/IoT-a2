@@ -7,7 +7,8 @@ MAX_WATER_LEVEL = 10
 
 class ArduinoBoard:
     __arduino: arv.Serial = arv.Serial(port='COM3', baudrate=19200, timeout=.1)
-    __state: str = ""
+    __state: str = "Undefined"
+    __mode: str = "AUTO"
 
     def __read(self):
         data = self.__arduino.readline().decode('utf-8')
@@ -16,6 +17,12 @@ class ArduinoBoard:
     def __sample_water(self, water_level: float):
         file = open('src\pc\\board\WaterSampling.data', 'a')
         file.write(str(water_level) + "\n")
+        file.close()
+
+    def __log_sys_info(self):
+        file = open('src\pc\\board\log.data', 'w')
+        json = '{"STATE" : "' + self.__state + '", "MODE" : "' + self.__mode + '"}'
+        file.write(json)
         file.close()
 
     def __arduino_output_handler(self):
@@ -33,8 +40,9 @@ class ArduinoBoard:
             
             elif cmd.startswith("MODE:"):
                 mode = cmd.split(":")[1]
+                if (mode != ""): self.__mode = mode
 
-
+            self.__log_sys_info();
             time.sleep(0.1)
 
     def __init__(self):

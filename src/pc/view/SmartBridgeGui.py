@@ -4,6 +4,8 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 import threading as th
+import time
+import json
 
 style.use("ggplot")
 
@@ -12,9 +14,18 @@ class SmartBridgeGui:
     __fig: Figure = None
     __plot = None
     __state = None
+    __mode = None
 
     def __update_state(self):
-        self.__state.config(text="AAA")
+        while True:
+            pullData = open('src\pc\\board\log.data','r').read()
+            data = json.loads(pullData)     
+
+            self.__state.config(text=data['STATE'])
+            self.__mode.config(text=data['MODE'])
+
+            time.sleep(0.1)
+
 
 
     def __animate(self, i):
@@ -60,6 +71,9 @@ class SmartBridgeGui:
 
         lbl = tk.Label(f2, text="System Mode: ", font=("Arial", 18))
         lbl.pack(side = tk.LEFT)
+
+        self.__mode = tk.Label(f2, text="", font=("Arial", 18))
+        self.__mode.pack(side = tk.LEFT)
 
         f2.pack(side = tk.RIGHT)
         f.pack(side=tk.TOP)
