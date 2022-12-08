@@ -1,2 +1,4 @@
 .pio
 .vscode
+pc/board/__pycache__
+pc/gui/__pycache__
