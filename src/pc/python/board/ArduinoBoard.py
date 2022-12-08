@@ -15,13 +15,20 @@ class ArduinoBoard:
         return data.split("\r")[0]
 
     def __sample_water(self, water_level: float):
+        with open('src\pc\python\\board\WaterSampling.data', 'r') as fin:
+            data = fin.read().splitlines(True)
+
+        if len(data) > 99:
+            with open('src\pc\python\\board\WaterSampling.data', 'w') as fout:
+                fout.writelines(data[1:])
+
         file = open('src\pc\python\\board\WaterSampling.data', 'a')
         file.write(str(water_level) + "\n")
         file.close()
 
     def __log_sys_info(self):
         file = open('src\pc\python\\board\log.data', 'w')
-        json = '{state : "' + self.__state + '", mode : "' + self.__mode + '"}'
+        json = '{"state" : "' + self.__state + '", "mode" : "' + self.__mode + '"}'
         file.write(json)
         file.close()
 
@@ -31,7 +38,7 @@ class ArduinoBoard:
 
             if cmd.startswith("W:"):
                 wlv = cmd.split(":")[1]
-                if (wlv == "" or float(wlv) < MAX_WATER_LEVEL): return
+                if (wlv == "" or float(wlv) < MAX_WATER_LEVEL): continue
                 self.__sample_water(float(wlv))
 
             elif cmd.startswith("STATE:"):

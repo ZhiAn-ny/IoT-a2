@@ -19,13 +19,14 @@ class SmartBridgeGui:
     def __update_state(self):
         while True:
             pullData = open('src\pc\python\\board\log.data','r').read()
+            if pullData == "": continue
+
             data = json.loads(pullData)     
 
-            self.__state.config(text=data['STATE'])
-            self.__mode.config(text=data['MODE'])
-
+            self.__state.config(text=data['state'])
+            self.__mode.config(text=data['mode'])
+            
             time.sleep(0.1)
-
 
 
     def __animate(self, i):
