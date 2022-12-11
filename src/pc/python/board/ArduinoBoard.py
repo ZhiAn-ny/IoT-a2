@@ -15,13 +15,6 @@ class ArduinoBoard:
         return data.split("\r")[0]
 
     def __sample_water(self, water_level: float):
-        with open('src\pc\python\\board\WaterSampling.data', 'r') as fin:
-            data = fin.read().splitlines(True)
-
-        if len(data) > 99:
-            with open('src\pc\python\\board\WaterSampling.data', 'w') as fout:
-                fout.writelines(data[1:])
-
         file = open('src\pc\python\\board\WaterSampling.data', 'a')
         file.write(str(water_level) + "\n")
         file.close()

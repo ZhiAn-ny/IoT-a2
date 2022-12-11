@@ -33,7 +33,7 @@ class SmartBridgeGui:
         pullData = open('src\pc\python\\board\WaterSampling.data','r').read()
         dataArray = pullData.split('\n')
         yar=[]
-        for eachLine in dataArray:
+        for eachLine in dataArray[len(dataArray)-101:]:
             if len(eachLine)>1:
                 yar.append(float(eachLine))
         self.__plot.clear()
